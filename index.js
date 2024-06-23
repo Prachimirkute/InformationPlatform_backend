@@ -11,6 +11,8 @@
 //   console.log(`Server is running on ${PORT}`);
 // });
 const express = require('express');
+const axios = require('axios');
+const cors = require('cors');
 const path = require('path');
 const fs = require('fs').promises;
 
@@ -18,10 +20,10 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 const dbPath = path.join(__dirname, 'db.json');
 
-// Middleware to parse JSON bodies
+
+app.use(cors());
 app.use(express.json());
 
-// Endpoint to get all users
 app.get('/api/users', async (req, res) => {
   try {
     const data = await fs.readFile(dbPath, 'utf8');
